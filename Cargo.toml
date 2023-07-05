@@ -7,8 +7,16 @@ edition = "2021"
 
 [dependencies]
 domain = { path = "./domain" }
+usecase = { path = "./usecase" }
+gateway = { path = "./gateway" }
+driver = { path = "./driver" }
+ui = { path = "./ui" }
 
 [workspace]
 members = [
-    "domain"
+    "domain",
+    "usecase",
+    "gateway",
+    "driver",
+    "ui"
 ]
