@@ -1,5 +1,5 @@
 pub struct Board {
-    pub board: [[u32;3];3]
+    pub board: Vec<Vec<String>>
 }
 
 pub struct Koma {
@@ -8,14 +8,14 @@ pub struct Koma {
     pub y: i32
 }
 
-pub fn new() -> Board {
-    Board { board: [[0;3];3] }
-}
-
 impl Board {
-    pub fn init() -> Board {
-        Board{
-            board: [[0;3];3],
-        }
+    pub fn new() -> Board {
+        let board = vec![
+            vec!["-".to_string(), "-".to_string(), "-".to_string()],
+            vec!["-".to_string(), "-".to_string(), "-".to_string()],
+            vec!["-".to_string(), "-".to_string(), "-".to_string()],
+        ];
+
+        Board { board }
     }
 }
