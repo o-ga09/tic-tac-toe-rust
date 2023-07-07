@@ -1,3 +1,7 @@
+use crate::port::usecase::Port;
+use domain::domain::Board;
+use domain::domain::Koma;
+
 pub fn iswin(board: &Vec<Vec<String>>) -> bool {
     if check_vertical(&board) || check_horizon(&board) || check_cross(&board) {
         return true;
@@ -6,12 +10,12 @@ pub fn iswin(board: &Vec<Vec<String>>) -> bool {
     return false;
 }
 
-pub fn display() {
-
+pub fn display(game_port: &impl Port, board: Board) {
+    game_port.display(board);
 }
 
-pub fn input() {
-
+pub fn input(game_port: &impl Port, player: i32) -> Koma {
+    return game_port.input(player);
 }
 
 fn check_vertical(board: &Vec<Vec<String>>) -> bool {

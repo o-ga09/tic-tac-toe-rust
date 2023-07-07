@@ -7,19 +7,19 @@ name = "domain"
 version = "0.1.0"
 
 [[package]]
-name = "driver"
-version = "0.1.0"
-
-[[package]]
 name = "gateway"
 version = "0.1.0"
+dependencies = [
+ "domain",
+ "ui",
+ "usecase",
+]
 
 [[package]]
 name = "tic-tac-toe-rust"
 version = "0.1.0"
 dependencies = [
  "domain",
- "driver",
  "gateway",
  "ui",
  "usecase",
@@ -32,3 +32,6 @@ version = "0.1.0"
 [[package]]
 name = "usecase"
 version = "0.1.0"
+dependencies = [
+ "domain",
+]

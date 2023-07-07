@@ -25,3 +25,26 @@ members = [
 ]
 
 ~~~
+
+
+## 抽象化クラスについて
+
+- traitを使用する
+- 実装は以下
+
+~~~rust
+
+// 定義
+use domain::domain::Board;
+use domain::domain::Koma;
+
+pub trait Port {
+    fn iswin(board: Board) -> bool;
+    fn display(board: Board);
+    fn input(player: i32) -> Koma;
+}
+
+// 実装
+
+
+~~~

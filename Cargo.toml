@@ -9,7 +9,6 @@ edition = "2021"
 domain = { path = "./domain" }
 usecase = { path = "./usecase" }
 gateway = { path = "./gateway" }
-driver = { path = "./driver" }
 ui = { path = "./ui" }
 
 [workspace]
@@ -17,6 +16,5 @@ members = [
     "domain",
     "usecase",
     "gateway",
-    "driver",
     "ui"
 ]
