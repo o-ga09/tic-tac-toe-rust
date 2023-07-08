@@ -1,7 +1,9 @@
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Board {
     pub board: Vec<Vec<String>>
 }
 
+#[derive(Clone, Debug, Eq, PartialEq)]
 pub struct Koma {
     pub order: i32,
     pub x: i32,

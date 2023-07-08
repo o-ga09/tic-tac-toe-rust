@@ -3,13 +3,13 @@ use std::io::{Read};
 pub struct GameUi {}
 
 impl GameUi {
-    pub fn input(input: &mut dyn Read) -> String {
+    pub fn input(&self,input: &mut dyn Read) -> String {
         let mut str = String::new();
         let _ = input.read_to_string(&mut str);
         return str.to_string();
     }
     
-    pub fn output(output: &Vec<Vec<String>>) -> Result<(),&'static str> {
+    pub fn output(&self,output: &Vec<Vec<String>>) -> Result<(),&'static str> {
         for i in 0..3 {
             for j in 0..3 {
                 print!("{}",output[i][j]);
@@ -25,14 +25,14 @@ impl GameUi {
 
 mod tests{
     use std::io::Cursor;
-    use crate::ui;
+    use crate::ui::{GameUi};
 
     #[test]
     fn test_input() {
         let input_str = "want";
         let mut input_buffer = Cursor::new(input_str);
-
-        let result = ui::GameUi::input(&mut input_buffer);
+        let game_driver: GameUi = GameUi {};
+        let result = game_driver.input(&mut input_buffer);
 
         assert_eq!(result, "want".to_string());
     }
@@ -44,7 +44,8 @@ mod tests{
             vec!["O".to_string(), "X".to_string(), "O".to_string()],
             vec!["X".to_string(), "O".to_string(), "X".to_string()],
         ];
-        let got = ui::GameUi::output(&arg);
+        let game_driver: GameUi = GameUi {};
+        let got =game_driver.output(&arg);
         assert_eq!(got, Ok(()));
     }
 }

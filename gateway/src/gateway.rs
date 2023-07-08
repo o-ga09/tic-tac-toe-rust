@@ -1,20 +1,25 @@
-use usecase::port::usecase::Port;
 use domain::domain::Board;
 use domain::domain::Koma;
 use ui::ui::GameUi;
+use usecase::port::usecase::InputPort;
+use usecase::port::usecase::OutputPort;
+use std::io::stdin;
 use std::io::{Read};
 
 pub struct GameGateway {
     ui: GameUi
 }
 
-impl Port for GameGateway {
+impl OutputPort for GameGateway {
     fn display(&self, board: Board) {
-        self.ui.output(board.board);
+        let _ = self.ui.output(&board.board);
     }
+}
 
+impl InputPort for GameGateway {
     fn input(&self, player: i32) -> Koma {
-        let input: &mut dyn Read;
+        let stdin = stdin();
+        let input: &mut dyn Read = &mut stdin.lock();
         let res: String = self.ui.input(input);
         let words: Vec<&str> = res.split_whitespace().collect();
 

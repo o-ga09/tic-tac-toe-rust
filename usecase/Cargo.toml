@@ -6,4 +6,10 @@ edition = "2021"
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+mockall = "0.10"
+mockall_derive = "0.10"
+async-trait = "0.1.53"
+anyhow = "1.0.57"
+tokio = { version = "1.18.2", features = ["full"] }
+mry = "0.2.6"
 domain = { path = "../domain" }

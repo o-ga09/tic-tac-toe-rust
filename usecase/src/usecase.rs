@@ -1,5 +1,5 @@
-use crate::port::usecase::Port;
-use domain::domain::Board;
+use crate::port::usecase::InputPort;
+use crate::port::usecase::OutputPort;
 use domain::domain::Koma;
 
 pub fn iswin(board: &Vec<Vec<String>>) -> bool {
@@ -10,11 +10,11 @@ pub fn iswin(board: &Vec<Vec<String>>) -> bool {
     return false;
 }
 
-pub fn display(game_port: &impl Port, board: Board) {
-    game_port.display(board);
+pub fn display(game_port: &impl OutputPort, board: Vec<Vec<String>>) {
+    game_port.display(domain::domain::Board { board: board });
 }
 
-pub fn input(game_port: &impl Port, player: i32) -> Koma {
+pub fn input(game_port: &impl InputPort, player: i32) -> Koma {
     return game_port.input(player);
 }
 
@@ -57,27 +57,50 @@ fn check_cross(board: &Vec<Vec<String>>) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use crate::usecase;
+    use crate::port::usecase::{MockOutputPort, MockInputPort};
+    use domain::domain::{Board};
+
+    use super::*;
+    use mockall::{predicate::eq};    
 
     #[test]
     fn test_iswin(){
-        let board: Vec<Vec<String>> = vec![
-        vec!["⚪︎".to_string(), "⚪︎".to_string(), "⚪︎".to_string()],
-        vec!["-".to_string(), "-".to_string(), "-".to_string()],
-        vec!["-".to_string(), "-".to_string(), "-".to_string()],
-    ];
-        let got: bool = usecase::iswin(&board); 
-        assert_eq!(true,got);
+        let board = vec![
+            vec!["○".to_string(), "○".to_string(), "○".to_string()],
+            vec!["-".to_string(), "-".to_string(), "-".to_string()],
+            vec!["-".to_string(), "-".to_string(), "-".to_string()],
+        ];
+        let res = iswin(&board);
+        assert_eq!(res,true);
     }
 
     #[test]
     fn test_input() {
+        let mut mock = MockInputPort::new();
+        let player:i32 = 1;
 
+        mock.expect_input()
+            .with(eq(player))
+            .return_const(domain::domain::Koma{order: 1,x: 1, y: 1})
+            .times(1);
+
+        let res = input(&mock, player);
+        assert_eq!(res.order,1);
+        assert_eq!(res.x,1);
+        assert_eq!(res.y,1);
     }
 
     #[test]
     fn test_display(){
+        let mut mock = MockOutputPort::new();
+        let board = vec![];
+        let b = board.clone();
+        let mock_board : Board = domain::domain::Board{ board };
+        mock.expect_display()
+            .with(eq(mock_board))
+            .times(1);
 
+        display(&mock, b);
     }
 
 }
